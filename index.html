@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CEE Analytics</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="styles.css"/>
+<link rel="stylesheet" href="assets/css/jstable.css"/>
+</head>
+<body>
+<!-- Tabelas JSTable -->
+
+    <h2>Teste</h2>
+<script>
+  var engajamentoPorHorario = new Array(24);
+  engajamentoPorHorario = engajamentoPorHorario.fill(0);
+  var engajamentoTotal = 0;
+
+  function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
+    console.log('statusChangeCallback');
+    console.log(response);                   // The current login status of the person.
+    if (response.status === 'connected') {   // Logged into your webpage and Facebook.
+      testAPI();  
+      requestAPI();
+    } else {                                 // Not logged into your webpage or we are unable to tell.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this webpage.';
+    }
+  }
+
+
+  function checkLoginState() {               // Called when a person is finished with the Login Button.
+    FB.getLoginStatus(function(response) {   // See the onlogin handler
+      statusChangeCallback(response);
+    });
+  }
+
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '467168721026017',
+      cookie     : true,                     // Enable cookies to allow the server to access the session.
+      xfbml      : true,                     // Parse social plugins on this webpage.
+      version    : 'v11.0'           // Use this Graph API version for this call.
+    });
+
+
+    FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+      statusChangeCallback(response);        // Returns the login status.
+    });
+  };
+ 
+  function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+      console.log('Login sucedido para: ' + response.name);
+      document.getElementById('status').innerHTML =
+        'Olá, ' + response.name + '!';
+    });
+  }
+
+  function requestAPI(){
+    FB.api('/me', function(response) { console.log(response.id); getPageToken(response.id) }); 
+  }
+
+  function getPageToken(userId){
+    FB.api(userId + '/accounts?fields=access_token', 
+      function(response){ console.log(response.data[0].access_token); getPagePosts(response.data[0].access_token); }
+    )
+  }
+
+  function getPagePosts(pageToken){ // Para adicionar o limite de posts, '&limit=10'
+    FB.api('me/feed?fields=id,created_time&limit=100', {  access_token : pageToken },
+      function(response){ 
+        response.data.forEach(function(post){
+            getMetrics(pageToken, post);
+       });
+      }
+    )
+  }
+
+  
+  function getMetrics(pageToken, post){
+      FB.api(post.id + '/insights?metric=post_reactions_by_type_total, post_engaged_users, post_negative_feedback, post_impressions_unique', 
+      {  access_token : pageToken},
+        function(response) {
+          if(response){
+            var horarioDoPost = convertUTCtoHour(post.created_time);  <!-- usar isso ainda -->
+            var impressoesPost = response['data'][3]['values'][0]['value'];
+            impressoesPost = parseInt(impressoesPost, 10);
+            console.log('Impressoes do post: ' + impressoesPost);
+
+            if(!Number.isInteger(engajamentoPorHorario[horarioDoPost])){
+              engajamentoPorHorario[horarioDoPost] = impressoesPost;
+            }
+            else{
+              engajamentoPorHorario[horarioDoPost] = (engajamentoPorHorario[horarioDoPost] + impressoesPost);
+            }
+            engajamentoTotal += impressoesPost;
+            
+            makeTablesHTML(response);
+          }
+      });
+  }
+
+  function convertUTCtoHour(utcString){
+    console.log("String recebida: " + utcString);
+    console.log("String convertida: " + (((utcString).split('T'))[1]).split(':')[0])
+    return (((utcString).split('T'))[1]).split(':')[0];
+  }
+
+  function makeTablesHTML(myArray) {
+    var maiorEngajamento = Math.max.apply(null, engajamentoPorHorario);
+    document.getElementById("json").innerHTML = syntaxHighlight(JSON.stringify(myArray, undefined, 4));
+    document.getElementById("horario").innerText = "Melhor engajamento: " + engajamentoPorHorario.indexOf(maiorEngajamento) + "h" + " (" + maiorEngajamento + ").";
+  }
+
+  function syntaxHighlight(json) {
+      json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+          var cls = 'number';
+          if (/^"/.test(match)) {
+              if (/:$/.test(match)) {
+                  cls = 'key';
+              } else {
+                  cls = 'string';
+              }
+          } else if (/true|false/.test(match)) {
+              cls = 'boolean';
+          } else if (/null/.test(match)) {
+              cls = 'null';
+          }
+          return '<span class="' + cls + '">' + match + '</span>';
+      });
+  }
+
+</script>
+
+
+<!-- The JS SDK Login Button -->
+
+<fb:login-button scope="public_profile, email, read_insights, pages_show_list, pages_read_engagement,
+pages_manage_metadata,
+pages_read_user_content,
+pages_manage_engagement" onlogin="checkLoginState();" enable_profile_selector = true>
+</fb:login-button>
+
+<div id="status"></div>
+
+<div id="horario" class="horario"></div>
+
+<pre id="json"></pre>
+
+
+<!-- Load the JS SDK asynchronously -->
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+pre {
+    background-color: ghostwhite;
+    border: 1px solid silver;
+    padding: 10px 20px;
+    margin: 20px; 
+    overflow: scroll;
+    }
+div.horario {
+   box-sizing: border-box;
+   display: inline-block;
+   line-height: normal;
+   vertical-align: middle;
+   background-color: ghostwhite;
+   border: transparent;
+   border-radius: 2px;
+   font-size: 100%;
+   padding: .5em 1em;
+   font-family: 'Trebuchet MS', sans-serif;
+   background: #333;
+   color: #fff;
+   text-align: center;
+   display: table;
+   margin: 0 auto;
+    }
+
+ .json-key {
+    color: brown;
+    }
+ .json-value {
+    color: navy;
+    }
+ .json-string {
+    color: olive;
+    }
+
+ .string { color: green; }
+ .number { color: darkorange; }
+ .boolean { color: blue; }
+ .null { color: magenta; }
+ .key { color: red; }
