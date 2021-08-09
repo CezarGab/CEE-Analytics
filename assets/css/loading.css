@@ -1,0 +1,10 @@
+.loader{
+    display: flex;
+    height: 100px;
+    width: 20%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: max-content
+  }
+  

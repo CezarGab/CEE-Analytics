@@ -1,0 +1,69 @@
+/* Google Font Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins" , sans-serif; 
+}
+pre {
+    background-color: ghostwhite;
+    border: 1px solid silver;
+    padding: 10px 20px;
+    margin: 20px; 
+    overflow: scroll;
+    }
+div.horario {
+   box-sizing: border-box;
+   display: inline-block;
+   line-height: normal;
+   vertical-align: middle;
+   background-color: ghostwhite;
+   border: transparent;
+   border-radius: 2px;
+   font-size: 100%;
+   padding: .5em 1em;
+   font-family: 'Trebuchet MS', sans-serif;
+   background: #333;
+   color: #fff;
+   text-align: center;
+   display: table;
+   margin: 0 auto;
+    }
+
+body{
+   background-color: #E4E9F7;
+}
+
+ .json-key {
+    color: brown;
+    }
+ .json-value {
+    color: navy;
+    }
+ .json-string {
+    color: olive;
+    }
+
+ .string { color: green; }
+ .number { color: darkorange; }
+ .boolean { color: blue; }
+ .null { color: magenta; }
+ .key { color: red; }
+
+ a { 
+   color: inherit; 
+}  
+ 
+ /* mouse over link */
+ a:hover {
+   color: hotpink;
+ }
+
+ div.botao-continuar {
+  margin: auto;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: max-content
+ }

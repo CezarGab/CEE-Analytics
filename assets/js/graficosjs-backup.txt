@@ -1,0 +1,85 @@
+var testePosts =       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3, 5, 6, 7, 7, 12, 9, 11, 13, 10, 5, 6, 03, 04];
+var testeEngajamento = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 559, 2043, 3739, 2757, 4979, 3912, 7705, 4596, 3930, 6129, 3590, 2797, 1820, 1300, 1292];
+var engajamentoTotal = 51148;
+
+function teste(engajamentoPorHorario, postsPorHorario, engajamentoTotal){
+  var engajamentoOrdenado;
+  engajamentoOrdenado = engajamentoPorHorario.sort();
+
+
+  engajamentoPorHorario.forEach(function(engajamento, horario){ // O horario e' o mesmo valor do iterador i
+    var bolha = new Object();
+    // bolha.x = horario + 'h';
+    bolha.x = horario;
+    bolha.y = engajamento;
+    bolha.z = postsPorHorario[horario];  
+    var porcentagem = engajamento/engajamentoTotal;
+    console.log(porcentagem);
+
+    //seriesBubbles[0].data.push(bolha);
+    if (porcentagem > 0.1){
+      seriesBubbles[0].data.push(bolha);
+      console.log("Alto engajamento");
+    }
+    else if (porcentagem > 0.05){
+      seriesBubbles[1].data.push(bolha);
+    }
+    else if (porcentagem > 0.03){
+      seriesBubbles[2].data.push(bolha);
+    }
+    else{
+      seriesBubbles[3].data.push(bolha);
+    }
+  })
+}
+
+var seriesBubbles = [{
+    name: 'Alto engajamento',
+    data: [],
+  },
+   {
+    name: 'Médio engajamento',
+    data: [],
+  },
+  {
+    name: 'Baixo engajamento',
+    data: [],
+  },
+  {
+    name: 'Engajamento mínimo',
+    data: [],
+  },]
+ 
+teste(testeEngajamento, testePosts, engajamentoTotal);
+
+var options = {
+    series: seriesBubbles,
+
+    chart: {
+      height: 500,
+      type: 'bubble',
+  },
+  dataLabels: {
+      enabled: false
+  },
+  fill: {
+      opacity: 0.8
+  },
+  title: {
+      text: 'Simple Bubble Chart'
+  },
+  xaxis: {
+      tickAmount: 12,
+      type: 'category',
+     /*  categories: ['00h', '01h', '02h', '03h', '04h', '05h', '06h', '07h', '08h',  
+                   '09h', '10h', '11h', '12h', '13h', '14h', '15h', '16h', '17h',
+                   '18h', '19h', '20h', '21h', '22h', '23h'          
+      ] */
+  },
+  yaxis: {
+      max: testeEngajamento.sort().pop(), // maximiza de acordo com o valor mais alto de engajamento
+  }
+  };
+
+  var chart = new ApexCharts(document.querySelector("#chart"), options);
+  chart.render();

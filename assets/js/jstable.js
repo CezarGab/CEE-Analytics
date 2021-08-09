@@ -40,12 +40,12 @@ const JSTableDefaultConfig = {
 
     // Customise the display text
     labels: {
-        placeholder: "Search...",
-        perPage: "{select} entries per page",
+        placeholder: "Pesquisar...",
+        perPage: "{select} posts por página",
         noRows: "No entries found",
-        info: "Showing {start} to {end} of {rows} entries",
-        loading: "Loading...",
-        infoFiltered: "Showing {start} to {end} of {rows} entries (filtered from {rowsTotal} entries)"
+        info: "Apresentando {start} a {end} de {rows} posts totais.",
+        loading: "Carregando...",
+        infoFiltered: "Apresentando {start} a {end} de {rows} posts (filtrados de {rowsTotal} posts)"
     },
 
     // Customise the layout
