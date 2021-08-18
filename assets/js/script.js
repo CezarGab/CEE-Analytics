@@ -144,6 +144,7 @@ function convertUTCtoHour(utcString) { // Converte a string em UTC para horario 
     if (conversion.split("")[0] == '0') {
         conversion = conversion.split("")[1];
     }
+    conversion = conversion - 3 // (Brasil, TODO: obter horário a partir do timezone do usuário)
     return conversion;
 }
 
