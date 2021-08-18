@@ -82,13 +82,16 @@ function getMetrics(pageToken, post) {
                 var horarioDoPost = convertUTCtoHour(post.created_time);
                 var impressoesPost;
 
-                try {
-                    impressoesPost = response['data'][3]['values'][0]['value'];
-                } catch (error) {
-                    impressoesPost = 0; // Se deu erro, é porque foi um post em que a pagina foi marcada.
-                    console.error(error);
-                }
+                // TODO: implementar corretamente as linhas abaixo sem complicar a tabela
+                // try {
+                //     impressoesPost = response['data'][3]['values'][0]['value'];
+                // } catch (error) {
+                //     impressoesPost = 0; // Se deu erro, é porque foi um post em que a pagina foi marcada.
+                //     console.error(error);
+                // }
 
+                impressoesPost = response['data'][3]['values'][0]['value'];
+                
                 impressoesPost = parseInt(impressoesPost, 10);
 
                 if (!Number.isInteger(engajamentoPorHorario[horarioDoPost])) {
