@@ -316,5 +316,3 @@ function switchOverlay(mode) { // Ativa ou desativa o overlay, com seu respectiv
         document.getElementById('continuar').setAttribute("style", "display:inline");
     }
 }
-
-alert("Bem-vindo. Membros da Gestão Chamyto não são permitidos por aqui.");
