@@ -29,10 +29,8 @@
 CEE Analytics foi uma dashboard de métricas para a página do Facebook do Centro de Engenharia Elétrica e de Computação. Desenvolvi enquanto Diretor de Comunicações. O objetivo
 era realizar estudos de quais eram os melhores horários para engajamentos na página, a fim de alcançar o maior número de pessoas.  
   
-Depois, passamos a utilizar a plataforma do próprio Facebook, que fornecia
-estas informações. O problema é que a plataforma foi descontinuada e, por isso, desenvolvi essa dashboard para a equipe.
 CEE Analytics conectava com a API do Facebook e, ao ser autorizado, coletava informações de alcance e interações das publicações, fornecendo um gráfico com os melhores horários para
-se publicar na rede e uma tabela com todas as publicações feitas e as respectivas métricas. 
+se publicar na rede e uma tabela com todas as métricas de interesse. 
 
 Com o passar dos meses, o centro acadêmico passou a dar mais ênfase ao Instagram, e o CEE Analytics caiu em desuso. Atualmente, não está funcional, pois não foi atualizado para novas versões
 do Facebook. 
