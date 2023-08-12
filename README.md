@@ -23,14 +23,6 @@
     <a>
       <img src="https://img.shields.io/badge/Gitpod-000000?style=for-the-badge&logo=gitpod&logoColor=#FFAE33"/>
     </a>
-  <p align="center">
-    <a href="#versão-em-português">Português</a>
-  </p>
- <p align="center">
-   <a>
-      <img src="examples/gif-presentation.gif"/>
-    </a>
-  </p>
 
 
 ## O que é?
